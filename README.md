@@ -1,4 +1,4 @@
-# vuejsfirebase
+# Bookstore
 
 > A Vue.js project
 

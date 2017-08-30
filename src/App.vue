@@ -34,6 +34,7 @@
               <tr>
                 <th>title</th>
                 <th>author</th>
+                <th>date</th>
                 <th>action</th>
               </tr>
             </thead>
@@ -41,6 +42,7 @@
               <tr v-for="book in books">
                 <td><a v-bind:href="book.url">{{book.title}}</a></td>
                 <td>{{book.author}}</td>
+                <td>{{book.date}}</td>
                 <td><span class="glyphicon glyphicon-trash" v-on:click="removeBook(book)"></span></td>
               </tr>
             </tbody>
@@ -52,12 +54,12 @@
 
 <script>
 
-// component example
-import Hello from './components/Hello'
+var date = new Date().toLocaleString();
 
+//Component example
+import Hello from './components/Hello'
 //Firebase
 import Firebase from 'firebase'
-
 //Toastr
 import toastr from 'toastr'
 
@@ -75,10 +77,13 @@ let db = app.database();
 let booksRef = db.ref('books');
 
 export default {
+  //app name
   name: 'app',
+  //import componentes
   components: {
     Hello
   },
+  //add firebase
   firebase: {
     books: booksRef,
   },
@@ -88,7 +93,8 @@ export default {
       newBook: {
         title: '',
         author: '',
-        url: ''
+        url: '',
+        date: date,
       }
     }
   },
@@ -96,7 +102,7 @@ export default {
   methods: {
     addBook: function() {
       booksRef.push(this.newBook);
-      //restar form
+      //restart form
       this.newBook.title = '',
       this.newBook.author = '',
       this.newBook.url = ''
